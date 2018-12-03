@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    //the title and start button fades in
+    //the trivia and start button fades in
     $("#trivia, #start, #play-again").hide();
     $("#trivia, #start").fadeIn(2000);
 
@@ -21,6 +21,16 @@ $(document).ready(function () {
         correct: 3,
     },
     {
+        question: "What type of car does Elon Musk drive?",
+        answers: ["Ferrari", "Toyota", "Tesla", "Jeep"],
+        correct: 2,
+    },
+    {
+        question: "How many days are in a year?",
+        answers: ["5", "232", "143", "365"],
+        correct: 3,
+    },
+    {
         question: "In which city is the basketball team Lakers located at?",
         answers: ["New York", "Los Angeles", "Houston", "Miami"],
         correct: 1,
@@ -31,18 +41,15 @@ $(document).ready(function () {
         correct: 3,
     }]
 
-
-    var timeLeft = 15;
+    var timeLeft = 10;
     var isRunning = false;
     var questC = choices.length;
-    var choose;
-    var intId;
-    var index;
+    var choose, index, intId;
     var rightAns = 0;
     var wrongAns = 0;
     var playerChoice = "";
 
-    //when the start button is pressed
+    //when the start button is clicked displays time, question, and choices
     $("#start").on("click", function () {
         $("#start").hide();
         timeD();
@@ -57,7 +64,8 @@ $(document).ready(function () {
             isRunning = true;
         }
     }
-    //display timer and options
+    
+    //display timer and when time runs out display correct answer
     function timeD() {
         $("#timer").html("<h3>You have: " + timeLeft + " secounds to answer!</h3>");
         timeLeft--;
@@ -65,17 +73,18 @@ $(document).ready(function () {
         if (timeLeft === -1) {
             wrongAns++;
             stopTime();
-            $("#answers").html("<p>Time is up! The correct answer is: " + choose.answers[choose.correct] + "</p>");
+            $("#answers").html("<h5>TIME IS UP! Correct answer is: " + choose.answers[choose.correct] + "</h5>");
             clearResults();
         }
     }
-    //stop the time
+
+    //stop the time function
     function stopTime() {
         isRunning = false;
         clearInterval(intId);
     }
 
-    //display random questions
+    //display random question and create div, add class
     function showQuestion() {
         index = Math.floor(Math.random() * choices.length);
         choose = choices[index];
@@ -109,17 +118,16 @@ $(document).ready(function () {
             }
         })
     }
+
     //clear results and show the player scores
     function clearResults() {
         var timeO = setTimeout(function () {
             $("#answers").empty();
-            timeLeft = 15;
-
             if ((wrongAns + rightAns) === questC) {
                 $("#questions").empty();
-                $("#questions").html("<h4>RESULTS: </h4>");
-                $("#answers").append("<h5>Right answers: " + rightAns + "</h5>");
-                $("#answers").append("<h5>Wrong answers: " + wrongAns + "</h5>");
+                $("#questions").html("<h4>RESULTS:</h4>");
+                $("#answers").append("<h5>RIGHT: " + rightAns + "</h5>");
+                $("#answers").append("<h5>WRONG: " + wrongAns + "</h5>");
                 $("#timer").hide();
                 $("#play-again").show();
                 rightAns = 0;
@@ -129,10 +137,11 @@ $(document).ready(function () {
                 timeRun();
                 showQuestion();
             }
+            timeLeft = 10;
         }, 2500);
     }
 
-    //when the play again button is click reset the game
+    //when the play again button is clicked reset the game
     $("#play-again").on("click", function () {
         $("#play-again").hide();
         $("#timer").show();
