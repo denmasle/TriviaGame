@@ -1,0 +1,29 @@
+body {
+    background: lightgray;
+    text-align: center;
+    color: gray;
+}
+
+#trivia {
+    font-family: fantasy;
+    font-size: 4em;
+}
+
+.playerc {
+    border-radius: 25px;
+    background-color: white;
+    width: 300px;
+    font-size: 20px;
+    text-align: center;
+	color: gray;
+    margin: 15px auto;
+}
+
+.playerc:hover {
+    background-color: lightslategray;
+    color: white;
+}
+
+h5 {
+    color: white;
+}
